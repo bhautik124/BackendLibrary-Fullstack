@@ -1,4 +1,5 @@
 const ModelStorageWithImg = require("../../../../model/features/crud/withImage/getDynamicCreatedDataWithImgModel");
+const ModelStorage = require("../../../../model/features/crud/withoutImg/getDynamicCreatedDataModel");
 const getDynamicModel = require("../../../../model/features/crud/withImage/dynamicSchemaWithImgModel");
 const { uploadBuffer } = require("../../../../helper/cloudinaryHelperForUser");
 const { nanoid } = require("nanoid");
@@ -14,17 +15,36 @@ module.exports.createCollectionNameAndFieldsWithImg = async (req, res) => {
     if (typeof fields === "string") fields = JSON.parse(fields);
 
     // Check if collection already exists
-    const existingModel = await ModelStorageWithImg.findOne({
+    const existingModel1 = await ModelStorageWithImg.findOne({
       modelName: collectionName,
     });
 
-    if (existingModel) {
-      const createdBySameUser =
-        String(existingModel.createdBy) === String(userId);
+    const existingModel2 = await ModelStorage.findOne({
+      modelName: collectionName,
+    });
 
-      if (createdBySameUser) {
+    let withImg;
+    if (existingModel1) {
+      withImg = "with img";
+    }
+
+    let withoutImg;
+    if (existingModel2) {
+      withoutImg = "withoutImg";
+    }
+
+    if (existingModel1 || existingModel2) {
+      const createdBySameUserInWithImg =
+        existingModel1 && String(existingModel1.createdBy) === String(userId);
+
+      const createdBySameUserInWithoutImg =
+        existingModel2 && String(existingModel2.createdBy) === String(userId);
+
+      if (createdBySameUserInWithImg || createdBySameUserInWithoutImg) {
         return res.status(200).json({
-          message: `Collection "${collectionName}" already exists by you`,
+          message: `You already created a "${collectionName}" collection in ${
+            withoutImg || withImg
+          }. Try using a different name.`,
         });
       } else {
         // Suggest alternative names if another user created it
@@ -313,7 +333,7 @@ module.exports.getAllModelsWithData = async (req, res) => {
     // Step 2: Loop through each model and fetch its documents
     for (const model of models) {
       const Model = getDynamicModel(model.modelName, model.fields);
-      const data = await Model.find(); 
+      const data = await Model.find();
 
       result.push({
         modelName: model.modelName,

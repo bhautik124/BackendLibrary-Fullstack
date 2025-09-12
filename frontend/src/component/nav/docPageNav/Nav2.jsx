@@ -119,7 +119,7 @@ const Nav2 = () => {
 
               <div className="py-2 lg:text-4xl text-3xl">
                 <a
-                  href="https://github.com/bhautik124/BackendLibrary---Fullstack.git"
+                  href="https://github.com/bhautik124/BackendLibrary-Fullstack.git"
                   className="flex items-center gap-2 cursor-pointer"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -131,7 +131,7 @@ const Nav2 = () => {
           ) : (
             <div className="py-2 lg:text-4xl text-3xl">
               <a
-                href="https://github.com/bhautik124/BackendLibrary---Fullstack.git"
+                href="https://github.com/bhautik124/BackendLibrary-Fullstack.git"
                 className="flex items-center gap-2 cursor-pointer"
                 target="_blank"
                 rel="noopener noreferrer"

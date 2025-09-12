@@ -1,4 +1,5 @@
-const authModel = require("../../../../model/features/Auth/BeginnerAuth/authModel");
+// const authModel = require("../../../../model/features/Auth/BeginnerAuth/authModel");
+const getBeginnerAuthModel = require("../../../../model/features/Auth/BeginnerAuth/authModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
@@ -45,9 +46,14 @@ module.exports.registerUser = async (req, res) => {
       return res.status(400).send(error.details[0].message);
     }
 
+    // API generate karne wale user ki email
+    const ownerEmail = req.user.email;
+
+    const AuthModel = getBeginnerAuthModel(ownerEmail);
+
     let { userName, email, password } = req.body;
 
-    let userExists = await authModel.findOne({ email });
+    let userExists = await AuthModel.findOne({ email });
     if (userExists) {
       return res.status(400).send("User already exists");
     }
@@ -55,7 +61,7 @@ module.exports.registerUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
 
-    const createUser = await authModel.create({
+    const createUser = await AuthModel.create({
       userName,
       email,
       password: hash,
@@ -79,8 +85,12 @@ module.exports.registerUser = async (req, res) => {
 
 module.exports.loginUser = async (req, res) => {
   try {
+    // API generate karne wale user ki email
+    const ownerEmail = req.user.email;
+    const AuthModel = getBeginnerAuthModel(ownerEmail);
+
     let { email, password } = req.body;
-    const user = await authModel.findOne({ email });
+    const user = await AuthModel.findOne({ email });
     if (!user) {
       return res.status(400).send("Invalid email or password");
     }

@@ -23,7 +23,7 @@ const Nav = () => {
 
         <div className="text-xl px-3 py-2 lg:flex lg:text-2xl lg:gap-5 border border-stone-700 lg:px-6 lg:py-3 rounded-full">
           <a
-            href="https://github.com/bhautik124/BackendLibrary---Fullstack.git"
+            href="https://github.com/bhautik124/BackendLibrary-Fullstack.git"
             className="flex items-center gap-2 cursor-pointer"
             target="_blank"
             rel="noopener noreferrer"

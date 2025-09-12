@@ -13,6 +13,8 @@ const checkApiActive = async (req, res, next) => {
       return res.status(403).send("This API is disabled by admin");
     }
 
+    req.user = user;
+
     next();
   } catch (error) {
     console.log(error.message);

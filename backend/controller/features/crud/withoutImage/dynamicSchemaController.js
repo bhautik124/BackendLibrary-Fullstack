@@ -1,5 +1,6 @@
 const getDynamicModel = require("../../../../model/features/crud/withoutImg/dynamicSchemaModel");
 const ModelStorage = require("../../../../model/features/crud/withoutImg/getDynamicCreatedDataModel");
+const ModelStorageWithImg = require("../../../../model/features/crud/withImage/getDynamicCreatedDataWithImgModel");
 const { nanoid } = require("nanoid");
 const mongoose = require("mongoose");
 
@@ -12,17 +13,36 @@ module.exports.createCollectionNameAndFields = async (req, res) => {
     if (typeof fields === "string") fields = JSON.parse(fields);
 
     // Check if collection already exists
-    const existingModel = await ModelStorage.findOne({
+    const existingModel1 = await ModelStorage.findOne({
       modelName: collectionName,
     });
 
-    if (existingModel) {
-      const createdBySameUser =
-        String(existingModel.createdBy) === String(userId);
+    const existingModel2 = await ModelStorageWithImg.findOne({
+      modelName: collectionName,
+    });
 
-      if (createdBySameUser) {
+    let withoutImg;
+    if (existingModel1) {
+      withoutImg = "withoutImg";
+    }
+
+    let withImg;
+    if (existingModel2) {
+      withImg = "with img";
+    }
+
+    if (existingModel1 || existingModel2) {
+      const createdBySameUserWithOutImg =
+        existingModel1 && String(existingModel1.createdBy) === String(userId);
+
+      const createdBySameUserWithImg =
+        existingModel2 && String(existingModel2.createdBy) === String(userId);
+
+      if (createdBySameUserWithOutImg || createdBySameUserWithImg) {
         return res.status(200).json({
-          message: `Collection "${collectionName}" already exists by you`,
+          message: `You already created a "${collectionName}" collection in ${
+            withoutImg || withImg
+          }. Try using a different name.`,
         });
       } else {
         // Suggest alternative names if another user created it

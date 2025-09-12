@@ -1,4 +1,5 @@
-const emailOtpAuthModel = require("../../../../model/features/Auth/emailOtpAuth/emailOtpAuthModel");
+// const emailOtpAuthModel = require("../../../../model/features/Auth/emailOtpAuth/emailOtpAuthModel");
+const getEmailOtpAuthModel = require("../../../../model/features/Auth/emailOtpAuth/emailOtpAuthModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const sendMail = require("../../../../utils/sendEmialForOtpAuth");
@@ -44,6 +45,9 @@ module.exports.registerUser = async (req, res) => {
     const { error } = schema.validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
+    const ownerEmail = req.user.email;
+    const emailOtpAuthModel = getEmailOtpAuthModel(ownerEmail);
+
     const { userName, email, password } = req.body;
 
     const userExists = await emailOtpAuthModel.findOne({ email });
@@ -67,6 +71,9 @@ module.exports.registerUser = async (req, res) => {
 
 module.exports.sendOtp = async (req, res) => {
   try {
+    const ownerEmail = req.user.email;
+    const emailOtpAuthModel = getEmailOtpAuthModel(ownerEmail);
+
     const { email } = req.body;
     const user = await emailOtpAuthModel.findOne({ email });
     if (!user) return res.status(400).send("User not found");
@@ -88,6 +95,9 @@ module.exports.sendOtp = async (req, res) => {
 
 module.exports.verifyUserPassword = async (req, res) => {
   try {
+    const ownerEmail = req.user.email;
+    const emailOtpAuthModel = getEmailOtpAuthModel(ownerEmail);
+
     const { email, password } = req.body;
 
     const user = await emailOtpAuthModel.findOne({ email });
@@ -104,6 +114,9 @@ module.exports.verifyUserPassword = async (req, res) => {
 
 module.exports.loginUser = async (req, res) => {
   try {
+    const ownerEmail = req.user.email;
+    const emailOtpAuthModel = getEmailOtpAuthModel(ownerEmail);
+
     const { email, password, otp } = req.body;
 
     const user = await emailOtpAuthModel.findOne({ email });

@@ -1,11 +1,15 @@
 const { OAuth2Client } = require("google-auth-library");
-const googleAuthModel = require("../../../../model/features/Auth/googleAuth/googleAuthModel");
+// const googleAuthModel = require("../../../../model/features/Auth/googleAuth/googleAuthModel");
+const getGoogleAuthModel = require("../../../../model/features/Auth/googleAuth/googleAuthModel");
 const jwt = require("jsonwebtoken");
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 module.exports.verifyGoogleToken = async (req, res) => {
   try {
+    const ownerEmail = req.user.email;
+    const googleAuthModel = getGoogleAuthModel(ownerEmail);
+
     const { token } = req.body;
 
     const ticket = await client.verifyIdToken({

@@ -1,4 +1,5 @@
-const roleBasedAuthModel = require("../../../../model/features/Auth/roleBasedAuth/roleBasedAuthModel");
+// const roleBasedAuthModel = require("../../../../model/features/Auth/roleBasedAuth/roleBasedAuthModel");
+const getRoleBasedAuthModel = require("../../../../model/features/Auth/roleBasedAuth/roleBasedAuthModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
@@ -49,6 +50,9 @@ module.exports.registerUser = async (req, res) => {
       return res.status(400).send(error.details[0].message);
     }
 
+    const ownerEmail = req.user.email;
+    const roleBasedAuthModel = getRoleBasedAuthModel(ownerEmail);
+
     let { userName, email, password, role } = req.body;
 
     let userExists = await roleBasedAuthModel.findOne({ email });
@@ -84,6 +88,9 @@ module.exports.registerUser = async (req, res) => {
 
 module.exports.loginUser = async (req, res) => {
   try {
+    const ownerEmail = req.user.email;
+    const roleBasedAuthModel = getRoleBasedAuthModel(ownerEmail);
+
     let { role, email, password } = req.body;
     const user = await roleBasedAuthModel.findOne({ email });
     if (!user) {
