@@ -6,6 +6,10 @@ const ModelStorage = require("../../../model/features/crud/withoutImg/getDynamic
 const path = require("path");
 const fs = require("fs");
 const userModel = require("../../../model/user model/userModel");
+const getBeginnerAuthModel = require("../../../model/features/Auth/BeginnerAuth/authModel");
+const getEmailOtpAuthModel = require("../../../model/features/Auth/emailOtpAuth/emailOtpAuthModel");
+const getGoogleAuthModel = require("../../../model/features/Auth/googleAuth/googleAuthModel");
+const getRoleBasedAuthModel = require("../../../model/features/Auth/roleBasedAuth/roleBasedAuthModel");
 
 module.exports.getBackupOfData = async (req, res) => {
   try {
@@ -43,6 +47,53 @@ module.exports.getBackupOfData = async (req, res) => {
         imgUrl: modelDef.imgUrl,
         publicId: modelDef.publicId,
         data: records,
+      });
+    }
+
+    //Third: Begginer Auth User Data
+    const UserBeginnerAuth = getBeginnerAuthModel(req.user.email);
+    const userRecords1 = await UserBeginnerAuth.find();
+
+    if (userRecords1.length > 0) {
+      backupData.push({
+        modelName: `BeginnerAuth_${req.user.email}`,
+        type: "Beginner Auth",
+        data: userRecords1,
+      });
+    }
+
+    //Fourth: EmailOTP Auth User Data
+    const UserEmailOTPAuth = getEmailOtpAuthModel(req.user.email);
+    const userRecords2 = await UserEmailOTPAuth.find();
+
+    if (userRecords2.length > 0) {
+      backupData.push({
+        modelName: `emailOtpAuthCreatedBy_${req.user.email}`,
+        type: "EmailOTP Auth",
+        data: userRecords2,
+      });
+    }
+
+    //Fifth: Google Auth User Data
+    const UserGoogleAuth = getGoogleAuthModel(req.user.email);
+    const userRecords3 = await UserGoogleAuth.find();
+
+    if (userRecords3.length > 0) {
+      backupData.push({
+        modelName: `googleAuthCreatedBy_${req.user.email}`,
+        type: "Google Auth",
+        data: userRecords3,
+      });
+    }
+    //Sixth: RoleBased Auth User Data
+    const UserRoleBasedAuth = getRoleBasedAuthModel(req.user.email);
+    const userRecords4 = await UserRoleBasedAuth.find();
+
+    if (userRecords4.length > 0) {
+      backupData.push({
+        modelName: `rolebaseAuthCreatedBy_${req.user.email}`,
+        type: "RoleBased Auth",
+        data: userRecords4,
       });
     }
 
