@@ -208,7 +208,7 @@ const Logout = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/generate-key",
+        "https://backendlibrary-fullstack-backend.onrender.com/api/generate-key",
         { feature: "google-auth-logout" },
         { withCredentials: true }
       );
