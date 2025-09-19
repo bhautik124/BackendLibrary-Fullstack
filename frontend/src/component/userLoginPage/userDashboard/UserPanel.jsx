@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { FaCopy } from "react-icons/fa";
 import CopyToast from "../../docDetails/copyCodeToast/CopyToast";
 
-const API_URL = "http://localhost:8000/api/get-login-user-data";
-const LOGOUT_URL = "http://localhost:8000/api/user/auth/logout";
+const API_URL = "https://backendlibrary-fullstack-backend.onrender.com/api/get-login-user-data";
+const LOGOUT_URL = "https://backendlibrary-fullstack-backend.onrender.com/api/user/auth/logout";
 
 const UserPanel = () => {
   const [user, setUser] = useState(null);
