@@ -62,7 +62,7 @@ const Create = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/create-collection-name",
+        "https://backendlibrary-fullstack-backend.onrender.com/api/create-collection-name",
         { collectionName, fields },
         { withCredentials: true }
       );
