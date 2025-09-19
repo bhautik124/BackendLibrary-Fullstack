@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { IoDocumentsSharp } from "react-icons/io5";
 import { FaBars } from "react-icons/fa";
 import Intoduction from "./docDetails/Introdution/Intoduction";
-import BeginnerLogin from "./docDetails/begginerAuth/login/beginnerLogin";
+import BeginnerLogin from "./docDetails/begginerAuth/login/BeginnerLogin";
 import BeginnerRegister from "./docDetails/begginerAuth/register/BeginnerRegister";
 import BeginnerLogout from "./docDetails/begginerAuth/logout/BeginnerLogout";
 import EmailOTPAuthRegister from "./docDetails/emailOtpAuth/register/EmailOTPAuthRegister";
