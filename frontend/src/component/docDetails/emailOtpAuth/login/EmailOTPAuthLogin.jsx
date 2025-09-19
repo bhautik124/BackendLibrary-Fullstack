@@ -516,7 +516,7 @@ const EmailOTPAuthLogin = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/generate-key",
+        "https://backendlibrary-fullstack-backend.onrender.com/api/generate-key",
         { feature: "email-otp-credential-verify" },
         { withCredentials: true }
       );
@@ -563,7 +563,7 @@ const EmailOTPAuthLogin = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/generate-key",
+        "https://backendlibrary-fullstack-backend.onrender.com/api/generate-key",
         { feature: "email-otp-send" },
         { withCredentials: true }
       );
@@ -610,7 +610,7 @@ const EmailOTPAuthLogin = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/generate-key",
+        "https://backendlibrary-fullstack-backend.onrender.com/api/generate-key",
         { feature: "email-otp-login" },
         { withCredentials: true }
       );
