@@ -69,7 +69,7 @@ const DeleteWholeModelStep2 = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/generate-key",
+        "https://backendlibrary-fullstack-backend.onrender.com/api/generate-key",
         { feature: "crud-with-image-whole-modeldelete" },
         { withCredentials: true }
       );
@@ -107,7 +107,7 @@ const DeleteWholeModelStep2 = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/generate-key",
+        "https://backendlibrary-fullstack-backend.onrender.com/api/generate-key",
         { feature: "crud-with-image-whole-modeldelete" },
         { withCredentials: true }
       );
