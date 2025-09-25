@@ -69,8 +69,27 @@ module.exports.registerUser = async (req, res) => {
       process.env.JWT_SECRET_KEY
     );
 
-    res.cookie("token", token);
-    res.status(201).send({ token, user: createUser });
+    // Cookie settings for production
+    const cookieOptions = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // HTTPS required in production
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Cross-site cookies for production
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    };
+
+    res.cookie("token", token, cookieOptions);
+    
+    // Also send token in response for localStorage fallback
+    res.status(201).send({ 
+      success: true,
+      message: "User registered successfully",
+      token, 
+      user: {
+        id: createUser._id,
+        userName: createUser.userName,
+        email: createUser.email
+      }
+    });
   } catch (error) {
     res.status(404).send(error.message);
     console.log(error.message);
@@ -93,8 +112,27 @@ module.exports.loginUser = async (req, res) => {
       process.env.JWT_SECRET_KEY
     );
 
-    res.cookie("token", token, { httpOnly: true });
-    res.status(200).json({ token, user });
+    // Cookie settings for production
+    const cookieOptions = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // HTTPS required in production
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Cross-site cookies for production
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    };
+
+    res.cookie("token", token, cookieOptions);
+    
+    // Also send token in response for localStorage fallback
+    res.status(200).json({ 
+      success: true,
+      message: "Login successful",
+      token, 
+      user: {
+        id: user._id,
+        userName: user.userName,
+        email: user.email
+      }
+    });
   } catch (error) {
     res.status(404).send(error.message);
     console.log(error.message);
@@ -103,7 +141,14 @@ module.exports.loginUser = async (req, res) => {
 
 module.exports.logoutUser = async (req, res) => {
   try {
-    res.cookie("token", "");
+    // Clear cookie with same options used to set it
+    const cookieOptions = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    };
+
+    res.clearCookie("token", cookieOptions);
     res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
     res.status(404).send(error.message);

@@ -3,7 +3,16 @@ const userModel = require("../../model/user model/userModel");
 
 const auth = async (req, res, next) => {
   //first check token..if token milega tohi vo aage try catch me jayega varna nahi jayega..
-  const token = req.cookies.token;
+  let token = req.cookies.token;
+  
+  // If no cookie token, check Authorization header as fallback
+  if (!token) {
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      token = authHeader.substring(7); // Remove 'Bearer ' prefix
+    }
+  }
+  
   if (!token) {
     return res.status(401).json({ msg: "No token, authorization denied" });
   }

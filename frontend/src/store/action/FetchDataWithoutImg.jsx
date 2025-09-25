@@ -1,12 +1,11 @@
-import axios from "axios";
+import axiosInstance from "../../config/axiosConfig";
 import { fetchData } from "../reducer/GetAllDataOfModelWithoutImgReducer";
 
 export const fetchDataWithoutImg = () => async (dispatch) => {
   try {
-    const response = await axios.post(
-      "http://localhost:8000/api/generate-key",
-      { feature: "crud-get-all-models-with-data" },
-      { withCredentials: true }
+    const response = await axiosInstance.post(
+      "/api/generate-key",
+      { feature: "crud-get-all-models-with-data" }
     );
     dispatch(fetchData(response.data));
     return response.data;
