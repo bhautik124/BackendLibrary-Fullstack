@@ -153,7 +153,7 @@ router.post("/generate-key", isAuth, async (req, res) => {
   }
 
   const newId = uid.rnd(); // apiKey
-  const base = `http://localhost:8000/api/${newId}`;
+  const base = `https://backendlibrary-fullstack-backend.onrender.com/api/${newId}`;
 
   const newApi = feature.map((f) => {
     let token = null;
