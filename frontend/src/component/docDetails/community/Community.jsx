@@ -1,5 +1,5 @@
 import React from "react";
-import { FaRegArrowAltCircleRight, FaGithub } from "react-icons/fa";
+import { FaRegArrowAltCircleRight, FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 
 const Community = () => {
   return (
@@ -23,14 +23,25 @@ const Community = () => {
           entirely on my own—without creating a backend, using only This APIs!
         </p>
 
-        <a
-          href="https://github.com/bhautik124/backend-library-community-sample.git"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-white font-semibold hover:text-blue-400"
-        >
-          <FaGithub /> Check out my app
-        </a>
+        <div className="flex flex-wrap gap-4">
+          <a
+            href="https://github.com/bhautik124/backend-library-community-sample.git"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-white font-semibold hover:text-blue-400 transition-colors"
+          >
+            <FaGithub /> Check out my app
+          </a>
+
+          <a
+            href="https://backend-library-community-sample.onrender.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-white font-semibold hover:text-green-400 transition-colors"
+          >
+            <FaExternalLinkAlt /> Live Preview
+          </a>
+        </div>
       </div>
     </div>
   );
