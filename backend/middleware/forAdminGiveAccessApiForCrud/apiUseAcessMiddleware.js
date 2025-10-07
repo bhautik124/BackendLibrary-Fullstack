@@ -16,18 +16,24 @@ const checkApiActive = async (req, res, next) => {
       return res.status(401).json({ msg: "Invalid token or API key" });
     }
 
-    const apiUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
+    // Find user by userId and apiKey, not by exact URL match
     const user = await userModel.findOne({
       _id: decoded.userId,
-      "apis.url": apiUrl,
       "apis.apiKey": apiKey,
     });
 
-    if (!user) return res.status(403).send("API not registered");
+    if (!user) {
+      return res.status(403).send("API not registered or invalid API key");
+    }
 
-    const api = user.apis.find((a) => a.url === apiUrl);
+    // Find the API by apiKey instead of URL
+    const api = user.apis.find((a) => a.apiKey === apiKey);
 
-    if (!api || api.isActive === false) {
+    if (!api) {
+      return res.status(403).send("API not found for this API key");
+    }
+
+    if (api.isActive === false) {
       return res.status(403).send("This API is disabled by admin");
     }
 

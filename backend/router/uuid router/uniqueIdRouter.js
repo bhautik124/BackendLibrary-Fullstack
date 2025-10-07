@@ -154,7 +154,10 @@ router.post("/generate-key", isAuth, checkApiLimit, async (req, res) => {
   }
 
   const newId = uid.rnd(); // apiKey
-  const base = `https://backendlibraryy-fullstack-backend.onrender.com/api/${newId}`;
+  
+  // Use environment variable for base URL, fallback to request host
+  const baseUrl = process.env.BACKEND_URL || `${req.protocol}://${req.get("host")}`;
+  const base = `${baseUrl}/api/${newId}`;
 
   const newApi = feature.map((f) => {
     let token = null;
