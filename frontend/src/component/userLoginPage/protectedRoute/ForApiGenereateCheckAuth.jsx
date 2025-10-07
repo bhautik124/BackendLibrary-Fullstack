@@ -9,7 +9,7 @@
 //     const checkAuth = async () => {
 //       try {
 //         const res = await axios.get(
-//           "http://localhost:8000/api/user-check-auth",
+//           "https://backendlibraryy-fullstack-backend.onrender.com/api/user-check-auth",
 //           {
 //             withCredentials: true,
 //           }
@@ -34,7 +34,7 @@ const useApiGenerateCheckAuth = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        await axios.get("http://localhost:8000/api/user-check-auth", {
+  await axios.get("https://backendlibraryy-fullstack-backend.onrender.com/api/user-check-auth", {
           withCredentials: true,
         });
         setIsAuth(true);

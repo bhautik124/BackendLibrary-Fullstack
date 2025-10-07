@@ -70,7 +70,7 @@ const CreateWithImg = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/create-collection-name-img",
+  "https://backendlibraryy-fullstack-backend.onrender.com/api/create-collection-name-img",
         { collectionName, fields },
         { withCredentials: true }
       );

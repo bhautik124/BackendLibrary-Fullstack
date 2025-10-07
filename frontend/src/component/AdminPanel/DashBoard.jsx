@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = "http://localhost:8000/api/get-all-user-data";
-const LOGOUT_URL = "http://localhost:8000/api/admin/auth/logout";
-const API_ACCESS_URL = "http://localhost:8000/api/admin/api-access";
+const API_URL = "https://backendlibraryy-fullstack-backend.onrender.com/api/get-all-user-data";
+const LOGOUT_URL = "https://backendlibraryy-fullstack-backend.onrender.com/api/admin/auth/logout";
+const API_ACCESS_URL = "https://backendlibraryy-fullstack-backend.onrender.com/api/admin/api-access";
 
 const DashBoard = () => {
   const [users, setUsers] = useState([]);

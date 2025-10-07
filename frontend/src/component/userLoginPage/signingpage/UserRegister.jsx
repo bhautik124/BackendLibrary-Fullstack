@@ -44,7 +44,7 @@
 
 //     try {
 //       await axios.post(
-//         "http://localhost:8000/api/admin/auth/login",
+//         "https://backendlibraryy-fullstack-backend.onrender.com/api/admin/auth/login",
 //         { email, password },
 //         { withCredentials: true }
 //       );
@@ -214,7 +214,7 @@ const UserRegister = () => {
 
     try {
       await axios.post(
-        "http://localhost:8000/api/user/auth/register",
+  "https://backendlibraryy-fullstack-backend.onrender.com/api/user/auth/register",
         { userName, email, password },
         { withCredentials: true }
       );

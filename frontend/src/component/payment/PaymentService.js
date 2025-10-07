@@ -1,6 +1,6 @@
 // Payment Service for handling payment-related API calls
 class PaymentService {
-  static BASE_URL = "http://localhost:8000/api";
+  static BASE_URL = "https://backendlibraryy-fullstack-backend.onrender.com/api";
 
   // Check if payment is required for specific action
   static async checkPaymentRequired(action) {

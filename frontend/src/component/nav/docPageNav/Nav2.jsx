@@ -20,7 +20,7 @@ const CustomToast = ({ text, type }) => {
 const Nav2 = () => {
   const [isAuth, setisAuth] = useState(false);
   const auth = useApiGenerateCheckAuth();
-  const LOGOUT_URL = "http://localhost:8000/api/user/auth/logout";
+  const LOGOUT_URL = "https://backendlibraryy-fullstack-backend.onrender.com/api/user/auth/logout";
   const navigate = useNavigate();
 
   useEffect(() => {

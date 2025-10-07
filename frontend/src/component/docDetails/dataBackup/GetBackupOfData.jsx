@@ -20,7 +20,7 @@ const GetBackupOfData = () => {
 
   const fetchBackupInfo = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/crud-get-backup-info", {
+  const response = await fetch("https://backendlibraryy-fullstack-backend.onrender.com/api/crud-get-backup-info", {
         method: "GET",
         credentials: "include"
       });
@@ -53,7 +53,7 @@ const GetBackupOfData = () => {
 
       // If no payment required, proceed with download
       const response = await fetch(
-        "http://localhost:8000/api/crud-get-backup",
+  "https://backendlibraryy-fullstack-backend.onrender.com/api/crud-get-backup",
         { method: "GET", credentials: "include" }
       );
 

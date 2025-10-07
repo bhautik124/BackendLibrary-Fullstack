@@ -5,9 +5,9 @@ import CopyToast from "../../docDetails/copyCodeToast/CopyToast";
 import PaymentService from "../../payment/PaymentService";
 import PaymentModal from "../../payment/PaymentModal";
 
-const API_URL = "http://localhost:8000/api/get-login-user-data";
-const LOGOUT_URL = "http://localhost:8000/api/user/auth/logout";
-const PAYMENT_STATUS_URL = "http://localhost:8000/api/payment/status";
+const API_URL = "https://backendlibraryy-fullstack-backend.onrender.com/api/get-login-user-data";
+const LOGOUT_URL = "https://backendlibraryy-fullstack-backend.onrender.com/api/user/auth/logout";
+const PAYMENT_STATUS_URL = "https://backendlibraryy-fullstack-backend.onrender.com/api/payment/status";
 
 const UserPanel = () => {
   const [user, setUser] = useState(null);

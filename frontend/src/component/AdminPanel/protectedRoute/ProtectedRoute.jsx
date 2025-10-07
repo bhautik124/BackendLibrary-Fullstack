@@ -8,7 +8,7 @@ const ProtectedRoute = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/api/check-auth", {
+  const res = await axios.get("https://backendlibraryy-fullstack-backend.onrender.com/api/check-auth", {
           withCredentials: true,
         });
         setIsAuth(true);
