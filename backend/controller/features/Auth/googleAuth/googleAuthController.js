@@ -2,6 +2,7 @@ const { OAuth2Client } = require("google-auth-library");
 // const googleAuthModel = require("../../../../model/features/Auth/googleAuth/googleAuthModel");
 const getGoogleAuthModel = require("../../../../model/features/Auth/googleAuth/googleAuthModel");
 const jwt = require("jsonwebtoken");
+const getCookieOptions = require("../../../../utils/cookieOptions");
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -37,7 +38,7 @@ module.exports.verifyGoogleToken = async (req, res) => {
       process.env.JWT_SECRET_KEY
     );
 
-    res.cookie("token", jwtToken, { httpOnly: true });
+    res.cookie("token", jwtToken, getCookieOptions());
     res.status(201).json({ token: jwtToken, user });
   } catch (err) {
     console.warn(err);
@@ -47,7 +48,7 @@ module.exports.verifyGoogleToken = async (req, res) => {
 
 module.exports.logoutUser = async (req, res) => {
   try {
-    res.clearCookie("token");
+    res.clearCookie("token", getCookieOptions());
     res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });

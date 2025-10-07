@@ -2,6 +2,7 @@ const userModel = require("../../model/user model/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
+const getCookieOptions = require("../../utils/cookieOptions");
 
 const schema = Joi.object({
   userName: Joi.string().alphanum().min(3).max(30).trim().required().messages({
@@ -69,7 +70,7 @@ module.exports.registerUser = async (req, res) => {
       process.env.JWT_SECRET_KEY
     );
 
-    res.cookie("token", token);
+    res.cookie("token", token, getCookieOptions());
     res.status(201).send({ token, user: createUser });
   } catch (error) {
     res.status(404).send(error.message);
@@ -93,7 +94,7 @@ module.exports.loginUser = async (req, res) => {
       process.env.JWT_SECRET_KEY
     );
 
-    res.cookie("token", token, { httpOnly: true });
+    res.cookie("token", token, getCookieOptions());
     res.status(200).json({ token, user });
   } catch (error) {
     res.status(404).send(error.message);
@@ -103,7 +104,7 @@ module.exports.loginUser = async (req, res) => {
 
 module.exports.logoutUser = async (req, res) => {
   try {
-    res.cookie("token", "");
+    res.cookie("token", "", { ...getCookieOptions(), maxAge: 0 });
     res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
     res.status(404).send(error.message);
